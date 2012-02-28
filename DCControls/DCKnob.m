@@ -22,11 +22,11 @@
 		self.valueArcWidth = 15.0;
 
 		// add the gesture recognizers for double & triple taps
-		UITapGestureRecognizer *doubleTapGesture = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTap:)] autorelease];
+		UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTap:)];
 		doubleTapGesture.numberOfTapsRequired = 2;
 		[self addGestureRecognizer:doubleTapGesture];
 
-		UITapGestureRecognizer *tripleTapGesture = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tripleTap:)] autorelease];
+		UITapGestureRecognizer *tripleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tripleTap:)];
 		tripleTapGesture.numberOfTapsRequired = 3;
 		[self addGestureRecognizer:tripleTapGesture];
 	}
