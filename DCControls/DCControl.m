@@ -96,4 +96,34 @@
 	CGContextClosePath(c);	
 }
 
+#pragma mark - Gesture states
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if(self.delegate && [self.delegate respondsToSelector:@selector(controlGestureStateDidChange:sender:)]) {
+        [self.delegate controlGestureStateDidChange:UIGestureRecognizerStateBegan sender:self];
+    }
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if(self.delegate && [self.delegate respondsToSelector:@selector(controlGestureStateDidChange:sender:)]) {
+        [self.delegate controlGestureStateDidChange:UIGestureRecognizerStateChanged sender:self];
+    }
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if(self.delegate && [self.delegate respondsToSelector:@selector(controlGestureStateDidChange:sender:)]) {
+        [self.delegate controlGestureStateDidChange:UIGestureRecognizerStateEnded sender:self];
+    }
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if(self.delegate && [self.delegate respondsToSelector:@selector(controlGestureStateDidChange:sender:)]) {
+        [self.delegate controlGestureStateDidChange:UIGestureRecognizerStateCancelled sender:self];
+    }
+}
+
 @end

@@ -150,6 +150,9 @@
 /* Begin PBXProject section */
 		AB10356313669BE900216FE5 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = AB10356613669BE900216FE5 /* Build configuration list for PBXProject "DCControls" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;

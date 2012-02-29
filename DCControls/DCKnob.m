@@ -8,7 +8,7 @@
 
 @implementation DCKnob
 @synthesize biDirectional, arcStartAngle, cutoutSize, valueArcWidth;
-@synthesize doubleTapValue, tripleTapValue;
+@synthesize singleTapValue, doubleTapValue, tripleTapValue;
 
 #pragma mark -
 #pragma mark Init
@@ -21,14 +21,20 @@
 		self.cutoutSize = 60.0;
 		self.valueArcWidth = 15.0;
 
-		// add the gesture recognizers for double & triple taps
-		UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTap:)];
-		doubleTapGesture.numberOfTapsRequired = 2;
-		[self addGestureRecognizer:doubleTapGesture];
-
-		UITapGestureRecognizer *tripleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tripleTap:)];
+		// add the gesture recognizers for taps
+        UITapGestureRecognizer *tripleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tripleTap:)];
 		tripleTapGesture.numberOfTapsRequired = 3;
 		[self addGestureRecognizer:tripleTapGesture];
+
+        UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTap:)];
+		doubleTapGesture.numberOfTapsRequired = 2;
+        [doubleTapGesture requireGestureRecognizerToFail:tripleTapGesture];
+		[self addGestureRecognizer:doubleTapGesture];
+
+        UITapGestureRecognizer *singleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
+		singleTapGesture.numberOfTapsRequired = 1;
+        [singleTapGesture requireGestureRecognizerToFail:doubleTapGesture];
+		[self addGestureRecognizer:singleTapGesture];
 	}
 
 	return self;
@@ -51,11 +57,19 @@
 #pragma mark -
 #pragma mark Gestures
 
+- (void)singleTap:(UIGestureRecognizer *)gestureRecognizer
+{
+	if (self.allowsGestures)
+	{
+		self.value = self.singleTapValue;
+	}
+}
+
 - (void)doubleTap:(UIGestureRecognizer *)gestureRecognizer
 {
 	if (self.allowsGestures)
 	{
-		[self performSelector:@selector(setValueFromGesture:) withObject:[NSNumber numberWithFloat:self.doubleTapValue] afterDelay:0.17];
+		self.value = self.doubleTapValue;
 	}
 }
 
@@ -63,16 +77,8 @@
 {
 	if (self.allowsGestures)
 	{
-		// cancel the double tap
-		[NSThread cancelPreviousPerformRequestsWithTarget:self selector:@selector(setValueFromGesture:) object:[NSNumber numberWithFloat:self.doubleTapValue]];
-
-		[self performSelector:@selector(setValueFromGesture:) withObject:[NSNumber numberWithFloat:self.tripleTapValue]];
+		self.value = self.tripleTapValue;
 	}
-}
-
-- (void)setValueFromGesture:(NSNumber *)newValue
-{
-	self.value = [newValue floatValue];
 }
 
 #pragma mark -
@@ -86,6 +92,7 @@
 
 	// create the initial angle and initial transform
 	initialTransform = [self initialTransform];
+    [super touchesBegan:touches withEvent:event];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
@@ -112,6 +119,7 @@
 		initialTransform = [self initialTransform];
 		initialAngle = angleBetweenPoints(thisPoint, centerPoint);
 	}
+    [super touchesMoved:touches withEvent:event];
 }
 
 #pragma mark -

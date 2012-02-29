@@ -11,8 +11,11 @@
 @protocol DCControlDelegate <NSObject>
 
 @required
-
 - (void)controlValueDidChange:(float)value sender:(id)sender;
+
+@optional
+// Only supporting began, changed, ended, and cancelled.
+- (void)controlGestureStateDidChange:(UIGestureRecognizerState)state sender:(id)sender;
 
 @end
 

@@ -28,6 +28,7 @@ static inline CGFloat angleBetweenPoints(CGPoint first, CGPoint second)
 @property CGFloat cutoutSize;					// default: 60 (degrees)
 @property CGFloat valueArcWidth;				// default: 15.0
 
+@property CGFloat singleTapValue;				// default: 0%
 @property CGFloat doubleTapValue;				// default: 0%
 @property CGFloat tripleTapValue;				// default: 0%
 
