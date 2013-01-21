@@ -33,6 +33,8 @@ static inline CGFloat angleBetweenPoints(CGPoint first, CGPoint second)
 @property CGFloat tripleTapValue;                       // default: 0%
 @property UIColor *arcBackgroundColor;                  // default: black
 
+@property NSString *valueFormatString;                  // default @"%02.0f%%"
+
 /////////////////////////
 // Init/Custom Setters //
 /////////////////////////
