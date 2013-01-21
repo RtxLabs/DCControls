@@ -20,28 +20,52 @@
 
 #pragma mark -
 
+- (id)initWithFrame:(CGRect)frame
+{
+    if ((self = [super initWithFrame:frame]))
+	{
+        [self setDefaults];
+    }
+    
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    if ((self = [super initWithCoder:aDecoder]))
+	{
+        [self setDefaults];
+    }
+    
+    return self;
+}
+
 - (id)initWithDelegate:(id)aDelegate
 {
 	if ((self = [super init]))
 	{
 		self.delegate = aDelegate;
-
-		// setup defaults
-		self.backgroundColor = [UIColor blackColor];
-		self.backgroundColorAlpha = 0.3;
-		self.color = [UIColor blueColor];
-		self.min = 0.0;
-		self.max = 1.0;
-		self.displaysValue = YES;
-		self.allowsTapGestures = YES;
-        self.allowsTouchGestures = YES;
-		self.labelFont = [UIFont boldSystemFontOfSize:12.5];
-
-		self.clipsToBounds = NO;
-		self.opaque = YES;
+        [self setDefaults];		
 	}
 
 	return self;
+}
+
+- (void)setDefaults
+{
+    // setup defaults
+    self.backgroundColor = [UIColor blackColor];
+    self.backgroundColorAlpha = 0.3;
+    self.color = [UIColor blueColor];
+    self.min = 0.0;
+    self.max = 1.0;
+    self.displaysValue = YES;
+    self.allowsTapGestures = YES;
+    self.allowsTouchGestures = YES;
+    self.labelFont = [UIFont boldSystemFontOfSize:12.5];
+    
+    self.clipsToBounds = NO;
+    self.opaque = YES;
 }
 
 - (void)setValue:(float)newValue

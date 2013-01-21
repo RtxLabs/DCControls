@@ -31,15 +31,17 @@ static inline CGFloat angleBetweenPoints(CGPoint first, CGPoint second)
 @property CGFloat singleTapValue;                       // default: 0%
 @property CGFloat doubleTapValue;                       // default: 0%
 @property CGFloat tripleTapValue;                       // default: 0%
-@property UIColor *arcBackgroundColor;                  // default: black
+@property (nonatomic, strong)UIColor *arcBackgroundColor;                  // default: black
 
-@property NSString *valueFormatString;                  // default @"%02.0f%%"
+@property (nonatomic, strong)NSString *valueFormatString;                  // default @"%02.0f%%"
 
 /////////////////////////
 // Init/Custom Setters //
 /////////////////////////
 
 - (id)initWithDelegate:(id)aDelegate;
+- (id)initWithCoder:(NSCoder *)aDecoder;
+- (id)initWithFrame:(CGRect)frame;
 - (void)setFrame:(CGRect)frame;
 
 ////////////////////

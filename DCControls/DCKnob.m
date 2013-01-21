@@ -24,6 +24,16 @@
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    if ((self = [super initWithCoder:aDecoder]))
+	{
+        [self setDefaults];
+    }
+    
+    return self;
+}
+
 - (id)initWithDelegate:(id)aDelegate
 {
 	if ((self = [super initWithDelegate:aDelegate]))
@@ -36,6 +46,8 @@
 
 - (void)setDefaults
 {
+    [super setDefaults];
+    
     self.arcStartAngle = 90.0;
     self.cutoutSize = 60.0;
     self.valueArcWidth = 15.0;

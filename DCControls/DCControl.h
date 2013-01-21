@@ -41,6 +41,11 @@
 
 
 - (id)initWithDelegate:(id)aDelegate;
+- (id)initWithCoder:(NSCoder *)aDecoder;
+- (id)initWithFrame:(CGRect)frame;
+
+- (void)setDefaults;
+
 
 /////////////////////
 // Drawing Methods //
