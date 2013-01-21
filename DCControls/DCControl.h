@@ -36,7 +36,9 @@
 @property (nonatomic) CGFloat value;					// default: 0.0
 
 @property BOOL displaysValue;							// default: YES
-@property BOOL allowsGestures;							// default: YES
+@property BOOL allowsTapGestures;							// default: YES
+@property BOOL allowsTouchGestures;							// default: YES
+
 
 - (id)initWithDelegate:(id)aDelegate;
 

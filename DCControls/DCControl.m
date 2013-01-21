@@ -11,7 +11,7 @@
 @synthesize color, backgroundColorAlpha;
 @synthesize labelFont, labelColor, labelOffset;
 @synthesize min, max, value;
-@synthesize displaysValue, allowsGestures;
+@synthesize displaysValue, allowsTapGestures, allowsTouchGestures;
 
 - (void)dealloc
 {
@@ -33,7 +33,8 @@
 		self.min = 0.0;
 		self.max = 1.0;
 		self.displaysValue = YES;
-		self.allowsGestures = YES;
+		self.allowsTapGestures = YES;
+        self.allowsTouchGestures = YES;
 		self.labelFont = [UIFont boldSystemFontOfSize:12.5];
 
 		self.clipsToBounds = NO;

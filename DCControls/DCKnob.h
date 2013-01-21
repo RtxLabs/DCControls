@@ -23,14 +23,15 @@ static inline CGFloat angleBetweenPoints(CGPoint first, CGPoint second)
 	CGFloat initialAngle;
 }
 
-@property BOOL biDirectional;					// default: NO
-@property CGFloat arcStartAngle;				// default: 90 (degrees)
-@property CGFloat cutoutSize;					// default: 60 (degrees)
-@property CGFloat valueArcWidth;				// default: 15.0
+@property BOOL biDirectional;                           // default: NO
+@property CGFloat arcStartAngle;                        // default: 90 (degrees)
+@property CGFloat cutoutSize;                           // default: 60 (degrees)
+@property CGFloat valueArcWidth;                        // default: 15.0
 
-@property CGFloat singleTapValue;				// default: 0%
-@property CGFloat doubleTapValue;				// default: 0%
-@property CGFloat tripleTapValue;				// default: 0%
+@property CGFloat singleTapValue;                       // default: 0%
+@property CGFloat doubleTapValue;                       // default: 0%
+@property CGFloat tripleTapValue;                       // default: 0%
+@property UIColor *arcBackgroundColor;                  // default: black
 
 /////////////////////////
 // Init/Custom Setters //

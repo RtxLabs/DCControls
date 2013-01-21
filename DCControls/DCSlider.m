@@ -84,7 +84,7 @@
 
 - (void)doubleTap:(UIGestureRecognizer *)gesture
 {
-	if (!self.allowsGestures)
+	if (!self.allowsTouchGestures)
 		return;
 	
 	CGPoint tapPoint = [gesture locationInView:self];

@@ -9,6 +9,7 @@
 @implementation DCKnob
 @synthesize biDirectional, arcStartAngle, cutoutSize, valueArcWidth;
 @synthesize singleTapValue, doubleTapValue, tripleTapValue;
+@synthesize arcBackgroundColor;
 
 #pragma mark -
 #pragma mark Init
@@ -20,6 +21,7 @@
 		self.arcStartAngle = 90.0;
 		self.cutoutSize = 60.0;
 		self.valueArcWidth = 15.0;
+        self.arcBackgroundColor = [UIColor grayColor];
 
 		// add the gesture recognizers for taps
         UITapGestureRecognizer *tripleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tripleTap:)];
@@ -59,7 +61,7 @@
 
 - (void)singleTap:(UIGestureRecognizer *)gestureRecognizer
 {
-	if (self.allowsGestures)
+	if (self.allowsTapGestures)
 	{
 		self.value = self.singleTapValue;
 	}
@@ -67,7 +69,7 @@
 
 - (void)doubleTap:(UIGestureRecognizer *)gestureRecognizer
 {
-	if (self.allowsGestures)
+	if (self.allowsTapGestures)
 	{
 		self.value = self.doubleTapValue;
 	}
@@ -75,7 +77,7 @@
 
 - (void)tripleTap:(UIGestureRecognizer *)gestureRecognizer
 {
-	if (self.allowsGestures)
+	if (self.allowsTapGestures)
 	{
 		self.value = self.tripleTapValue;
 	}
@@ -86,40 +88,47 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	CGPoint thisPoint = [[touches anyObject] locationInView:self];
-	CGPoint centerPoint = CGPointMake(self.frame.size.width / 2.0, self.frame.size.width / 2.0);
-	initialAngle = angleBetweenPoints(thisPoint, centerPoint);
+    if (self.allowsTouchGestures)
+    {
+        CGPoint thisPoint = [[touches anyObject] locationInView:self];
+        CGPoint centerPoint = CGPointMake(self.frame.size.width / 2.0, self.frame.size.width / 2.0);
+        initialAngle = angleBetweenPoints(thisPoint, centerPoint);
 
-	// create the initial angle and initial transform
-	initialTransform = [self initialTransform];
-    [super touchesBegan:touches withEvent:event];
+        // create the initial angle and initial transform
+        initialTransform = [self initialTransform];
+        [super touchesBegan:touches withEvent:event];
+
+    }
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	CGPoint thisPoint = [[touches anyObject] locationInView:self];
-	CGPoint centerPoint = CGPointMake(self.frame.size.width / 2.0, self.frame.size.width / 2.0);
+    if (self.allowsTouchGestures)
+    {
+        CGPoint thisPoint = [[touches anyObject] locationInView:self];
+        CGPoint centerPoint = CGPointMake(self.frame.size.width / 2.0, self.frame.size.width / 2.0);
 
-	CGFloat currentAngle = angleBetweenPoints(thisPoint, centerPoint);
-	CGFloat angleDiff = (initialAngle - currentAngle);
-	CGAffineTransform newTransform = CGAffineTransformRotate(initialTransform, angleDiff);
+        CGFloat currentAngle = angleBetweenPoints(thisPoint, centerPoint);
+        CGFloat angleDiff = (initialAngle - currentAngle);
+        CGAffineTransform newTransform = CGAffineTransformRotate(initialTransform, angleDiff);
 
-	CGFloat newValue = [self newValueFromTransform:newTransform];
+        CGFloat newValue = [self newValueFromTransform:newTransform];
 
-	// only set the new value if it doesn't flip the knob around
-	CGFloat diff = self.value - newValue;
-	diff = (diff < 0) ? -diff : diff;
-	if (diff < (self.max - self.min) / 10.0)
-	{
-		self.value = newValue;
-	}
-	else
-	{
-		// reset the initial angle & transform using the current value
-		initialTransform = [self initialTransform];
-		initialAngle = angleBetweenPoints(thisPoint, centerPoint);
-	}
-    [super touchesMoved:touches withEvent:event];
+        // only set the new value if it doesn't flip the knob around
+        CGFloat diff = self.value - newValue;
+        diff = (diff < 0) ? -diff : diff;
+        if (diff < (self.max - self.min) / 10.0)
+        {
+            self.value = newValue;
+        }
+        else
+        {
+            // reset the initial angle & transform using the current value
+            initialTransform = [self initialTransform];
+            initialAngle = angleBetweenPoints(thisPoint, centerPoint);
+        }
+        [super touchesMoved:touches withEvent:event];
+    }
 }
 
 #pragma mark -
@@ -157,7 +166,7 @@
 	if (self.backgroundColorAlpha > 0.02)
 	{
 		// outline semi circle
-		const CGFloat *colorComponents = CGColorGetComponents(self.color.CGColor);
+		const CGFloat *colorComponents = CGColorGetComponents(self.arcBackgroundColor.CGColor);
 		UIColor *backgroundColor = [UIColor colorWithRed:colorComponents[0]
 												   green:colorComponents[1]
 													blue:colorComponents[2]

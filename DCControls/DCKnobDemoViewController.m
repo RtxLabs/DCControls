@@ -57,6 +57,8 @@
 	self.knob.tripleTapValue = 100.0;
 	self.knob.value = 0.0;
 	self.knob.value = 10.5;
+    self.knob.allowsTouchGestures = NO;
+    self.knob.allowsTapGestures = NO;
 	[self.knobContainer addSubview:knob];
 }
 
