@@ -25,7 +25,6 @@
 
 @property (nonatomic, unsafe_unretained) id delegate;
 @property (nonatomic, strong) UIColor *color;			// default: black
-@property CGFloat backgroundColorAlpha;					// default: 0.3
 
 @property (nonatomic, strong) UIFont *labelFont;		// default: bold, system, 12.5
 @property (nonatomic, strong) UIColor *labelColor;		// default: use self.color
@@ -41,8 +40,6 @@
 
 
 - (id)initWithDelegate:(id)aDelegate;
-- (id)initWithCoder:(NSCoder *)aDecoder;
-- (id)initWithFrame:(CGRect)frame;
 
 - (void)setDefaults;
 

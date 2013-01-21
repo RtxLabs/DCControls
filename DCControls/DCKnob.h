@@ -32,6 +32,7 @@ static inline CGFloat angleBetweenPoints(CGPoint first, CGPoint second)
 @property CGFloat doubleTapValue;                       // default: 0%
 @property CGFloat tripleTapValue;                       // default: 0%
 @property (nonatomic, strong)UIColor *arcBackgroundColor;                  // default: black
+@property (nonatomic, strong)UIColor *arcForegroundColor;                  // default: black
 
 @property (nonatomic, strong)NSString *valueFormatString;                  // default @"%02.0f%%"
 

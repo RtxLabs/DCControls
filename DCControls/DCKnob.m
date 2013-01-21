@@ -9,7 +9,7 @@
 @implementation DCKnob
 @synthesize biDirectional, arcStartAngle, cutoutSize, valueArcWidth;
 @synthesize singleTapValue, doubleTapValue, tripleTapValue;
-@synthesize arcBackgroundColor;
+@synthesize arcBackgroundColor, arcForegroundColor;
 
 #pragma mark -
 #pragma mark Init
@@ -52,6 +52,8 @@
     self.cutoutSize = 60.0;
     self.valueArcWidth = 15.0;
     self.arcBackgroundColor = [UIColor grayColor];
+    self.arcForegroundColor = [UIColor blueColor];
+    
     self.valueFormatString = @"%02.0f%%";
     
     // add the gesture recognizers for taps
@@ -190,29 +192,25 @@
 
 	CGContextSaveGState(context);
 	CGContextSetLineWidth(context, self.valueArcWidth);
+	
+    // outline semi circle
+    const CGFloat *backgroundColorComponents = CGColorGetComponents(self.arcBackgroundColor.CGColor);
+    CGContextSetStrokeColor(context, backgroundColorComponents);
 
-	if (self.backgroundColorAlpha > 0.02)
-	{
-		// outline semi circle
-		const CGFloat *colorComponents = CGColorGetComponents(self.arcBackgroundColor.CGColor);
-		UIColor *backgroundColor = [UIColor colorWithRed:colorComponents[0]
-												   green:colorComponents[1]
-													blue:colorComponents[2]
-												   alpha:self.backgroundColorAlpha];
-		[backgroundColor set];
-
-		CGContextAddArc(context,
-						x,
-						y,
-						(boundsRect.size.width / 2) - self.valueArcWidth / 2,
-						kDCControlDegreesToRadians(self.arcStartAngle + self.cutoutSize / 2),
-						kDCControlDegreesToRadians(self.arcStartAngle + 360 - self.cutoutSize / 2),
-						0);
-		CGContextStrokePath(context);
-	}
-
+    CGContextAddArc(context,
+                    x,
+                    y,
+                    (boundsRect.size.width / 2) - self.valueArcWidth / 2,
+                    kDCControlDegreesToRadians(self.arcStartAngle + self.cutoutSize / 2),
+                    kDCControlDegreesToRadians(self.arcStartAngle + 360 - self.cutoutSize / 2),
+                    0);
+    CGContextStrokePath(context);
+	
+    
 	// draw the value semi circle
-	[self.color set];
+    const CGFloat *colorComponents = CGColorGetComponents(self.arcForegroundColor.CGColor);
+    CGContextSetStrokeColor(context, colorComponents);
+    
 	CGFloat valueAdjusted = (self.value - self.min) / (self.max - self.min);
 	if (self.biDirectional)
 	{

@@ -8,7 +8,7 @@
 
 @implementation DCControl
 @synthesize delegate;
-@synthesize color, backgroundColorAlpha;
+@synthesize color;
 @synthesize labelFont, labelColor, labelOffset;
 @synthesize min, max, value;
 @synthesize displaysValue, allowsTapGestures, allowsTouchGestures;
@@ -19,26 +19,6 @@
 }
 
 #pragma mark -
-
-- (id)initWithFrame:(CGRect)frame
-{
-    if ((self = [super initWithFrame:frame]))
-	{
-        [self setDefaults];
-    }
-    
-    return self;
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    if ((self = [super initWithCoder:aDecoder]))
-	{
-        [self setDefaults];
-    }
-    
-    return self;
-}
 
 - (id)initWithDelegate:(id)aDelegate
 {
@@ -53,9 +33,6 @@
 
 - (void)setDefaults
 {
-    // setup defaults
-    self.backgroundColor = [UIColor blackColor];
-    self.backgroundColorAlpha = 0.3;
     self.color = [UIColor blueColor];
     self.min = 0.0;
     self.max = 1.0;
