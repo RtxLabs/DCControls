@@ -14,32 +14,47 @@
 #pragma mark -
 #pragma mark Init
 
+- (id)initWithFrame:(CGRect)frame
+{
+    if ((self = [super initWithFrame:frame]))
+	{
+        [self setDefaults];
+    }
+    
+    return self;
+}
+
 - (id)initWithDelegate:(id)aDelegate
 {
 	if ((self = [super initWithDelegate:aDelegate]))
 	{
-		self.arcStartAngle = 90.0;
-		self.cutoutSize = 60.0;
-		self.valueArcWidth = 15.0;
-        self.arcBackgroundColor = [UIColor grayColor];
-
-		// add the gesture recognizers for taps
-        UITapGestureRecognizer *tripleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tripleTap:)];
-		tripleTapGesture.numberOfTapsRequired = 3;
-		[self addGestureRecognizer:tripleTapGesture];
-
-        UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTap:)];
-		doubleTapGesture.numberOfTapsRequired = 2;
-        [doubleTapGesture requireGestureRecognizerToFail:tripleTapGesture];
-		[self addGestureRecognizer:doubleTapGesture];
-
-        UITapGestureRecognizer *singleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
-		singleTapGesture.numberOfTapsRequired = 1;
-        [singleTapGesture requireGestureRecognizerToFail:doubleTapGesture];
-		[self addGestureRecognizer:singleTapGesture];
+		[self setDefaults];
 	}
 
 	return self;
+}
+
+- (void)setDefaults
+{
+    self.arcStartAngle = 90.0;
+    self.cutoutSize = 60.0;
+    self.valueArcWidth = 15.0;
+    self.arcBackgroundColor = [UIColor grayColor];
+    
+    // add the gesture recognizers for taps
+    UITapGestureRecognizer *tripleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tripleTap:)];
+    tripleTapGesture.numberOfTapsRequired = 3;
+    [self addGestureRecognizer:tripleTapGesture];
+    
+    UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTap:)];
+    doubleTapGesture.numberOfTapsRequired = 2;
+    [doubleTapGesture requireGestureRecognizerToFail:tripleTapGesture];
+    [self addGestureRecognizer:doubleTapGesture];
+    
+    UITapGestureRecognizer *singleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
+    singleTapGesture.numberOfTapsRequired = 1;
+    [singleTapGesture requireGestureRecognizerToFail:doubleTapGesture];
+    [self addGestureRecognizer:singleTapGesture];
 }
 
 // overridden to make sure the frame is always square.
